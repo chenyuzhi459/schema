@@ -61,6 +61,9 @@ public class SlothTableEngine implements LifeCycle {
         return storageEngines;
     }
 
+    public SlothTableEngine() {
+    }
+
     public SlothTableEngine(SlothTable slothTable) {
         this.slothTable = slothTable;
         init();

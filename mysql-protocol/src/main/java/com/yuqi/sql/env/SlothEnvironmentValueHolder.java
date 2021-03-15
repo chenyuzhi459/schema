@@ -16,13 +16,13 @@ public class SlothEnvironmentValueHolder implements LifeCycle {
     public static final SlothEnvironmentValueHolder INSTACNE
             = new SlothEnvironmentValueHolder();
 
-    private Map<String, String> properties;
+    private Map<String, Object> properties;
 
-    public Map<String, String> getProperties() {
+    public Map<String, Object> getProperties() {
         return properties;
     }
 
-    public void setProperties(Map<String, String> properties) {
+    public void setProperties(Map<String, Object> properties) {
         this.properties = properties;
     }
 
@@ -30,7 +30,7 @@ public class SlothEnvironmentValueHolder implements LifeCycle {
         properties.put(key, value);
     }
 
-    public String propertyValue(String key) {
+    public Object propertyValue(String key) {
         return properties.get(key);
     }
 

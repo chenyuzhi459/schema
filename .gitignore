@@ -93,3 +93,4 @@ buildNumber.properties
 /test-schema/derby.log
 /hive-schema/hive-schema.iml
 test-schema/.DS_Store
+*.iml

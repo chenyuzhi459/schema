@@ -11,7 +11,7 @@ public enum ShowEnum {
     /**
      * show tables;
      */
-    SHOW_TABLBS(0, "tables"),
+    SHOW_TABLES(0, "tables"),
 
     /**
      * show databases;
@@ -21,7 +21,22 @@ public enum ShowEnum {
     /**
      * show create table
      */
-    SHOW_CREATE(2, "create");
+    SHOW_CREATE(2, "create"),
+
+    /**
+     * show variables
+     */
+    SHOW_VARIABLES(3, "variables"),
+
+    /**
+     * show columns
+     */
+    SHOW_COLUMNS(4, "columns"),
+
+    /**
+     * show table status;
+     */
+    SHOW_TABLES_STATUS(5, "table");
 
     private final int index;
     private final String startKeyWord;

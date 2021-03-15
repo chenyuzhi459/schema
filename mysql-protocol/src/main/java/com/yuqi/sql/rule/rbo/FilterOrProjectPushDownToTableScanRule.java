@@ -76,6 +76,7 @@ public abstract class FilterOrProjectPushDownToTableScanRule extends RelOptRule 
         }
     };
 
+
     public FilterOrProjectPushDownToTableScanRule(RelOptRuleOperand operand, String description) {
         super(operand, description);
     }

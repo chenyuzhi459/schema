@@ -35,18 +35,20 @@ public class EnvironmentReplaceVisitor extends SqlShuttle {
         final String name = id.toString();
 
         if (name.startsWith("@@")) {
-            final String key = name.substring(2);
+            //TODO-cyz 区分session和global
+            final String key = name.startsWith("@@session.") ? name.substring(10) : name.substring(2);
 
-            String value = connectionContext.getProperties().get(key);
+            Object value = connectionContext.getProperties().get(key);
             if (Objects.isNull(value)) {
                 value = SlothEnvironmentValueHolder.INSTACNE.propertyValue(key);
-                if (Objects.isNull(value)) {
-                    throw new UnsupportedOperationException("Can't suppport environment value '" + key + "'");
-                }
+//                if (Objects.isNull(value)) {
+//                    throw new UnsupportedOperationException("Can't suppport environment value '" + key + "'");
+//                }
             }
 
-            final SqlLiteral environmentValue =
-                    SqlLiteral.createCharString(value, null, SqlParserPos.ZERO);
+
+            final SqlLiteral environmentValue = value == null ?  SqlLiteral.createUnknown(SqlParserPos.ZERO) :
+                    SqlLiteral.createCharString(value.toString(), null, SqlParserPos.ZERO);
 
             SqlIdentifier sqlIdentifier = new SqlIdentifier(Lists.newArrayList(key), SqlParserPos.ZERO);
             return SqlStdOperatorTable.AS.createCall(SqlParserPos.ZERO, environmentValue, sqlIdentifier);

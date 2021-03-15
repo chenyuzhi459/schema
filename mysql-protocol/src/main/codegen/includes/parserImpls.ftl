@@ -96,9 +96,10 @@ SqlDrop Drop() :
 
 SqlShow SqlShow() :
 {
-    SqlIdentifier command = null;
+    SqlNode command = null;
     SqlParserPos pos;
     ShowEnum type;
+    String db = null;
 }
 {
     {
@@ -106,15 +107,49 @@ SqlShow SqlShow() :
     }
 
     <SHOW>
+    [ <FULL> ]
     (
     <DATABASES>
     {
         type = ShowEnum.SHOW_DBS;
     }
     |
-    <TABLES>
+    <TABLE> <STATUS>
+
     {
-        type = ShowEnum.SHOW_TABLBS;
+
+      type = ShowEnum.SHOW_TABLES_STATUS;
+    }
+    |
+    <TABLES>
+       [
+           <FROM>
+           db = Identifier()
+       ]
+        //JUST consume
+        WhereOpt()
+    {
+        type = ShowEnum.SHOW_TABLES;
+    }
+    |
+    <COLUMNS>
+    [
+          <FROM>
+    ]
+    {
+
+        command = CompoundIdentifier();
+         type = ShowEnum.SHOW_COLUMNS;
+        //return new SqlShow(pos, type, db, command == null ? null : command.toString());
+    }
+    |
+    <VARIABLES>
+        [
+            <LIKE>
+            command = StringLiteral()
+        ]
+    {
+         type = ShowEnum.SHOW_VARIABLES;
     }
     |
     <CREATE>
@@ -125,7 +160,7 @@ SqlShow SqlShow() :
     }
     )
     {
-    return new SqlShow(pos, type, command == null ? null : command.toString());
+      return new SqlShow(pos, type, db, command == null ? null : command.toString());
     }
 }
 
@@ -310,8 +345,16 @@ SqlSet SetValue() :
    {
        key =  idf.toString();
    }
-   <EQ>
-   v = Literal()
+
+   [
+       <EQ>
+   ]
+
+   (
+       v = Literal()
+   |
+       v = SimpleIdentifier()
+   )
    {
        value = v.toString();
    }

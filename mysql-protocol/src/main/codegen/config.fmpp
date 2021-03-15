@@ -60,12 +60,15 @@ data: {
         "TABLES",
         "UNSIGNED",
         "COMMENT",
+        "COLUMNS",
+        "VARIABLES",
         "TEXT",
         "TINYTEXT",
         "MEDIUMTEXT",
         "LONGTEXT",
         "ENGINE",
-        "SHARD"
+        "SHARD",
+        "STATUS"
     ]
 
     # List of keywords from "keywords" section that are not reserved.
@@ -106,6 +109,7 @@ data: {
       "COLLATION_NAME"
       "COLLATION_SCHEMA"
       "COLUMN_NAME"
+       "COLUMNS",
       "COMMAND_FUNCTION"
       "COMMAND_FUNCTION_CODE"
       "COMMITTED"
@@ -226,6 +230,7 @@ data: {
       "OUTPUT"
       "OVERRIDING"
       "PAD"
+      "PARAMETER"
       "PARAMETER_MODE"
       "PARAMETER_NAME"
       "PARAMETER_ORDINAL_POSITION"
@@ -342,6 +347,7 @@ data: {
       "STYLE"
       "SUBCLASS_ORIGIN"
       "SUBSTITUTE"
+      "TABLES"
       "TABLE_NAME"
       "TEMPORARY"
       "TIES"

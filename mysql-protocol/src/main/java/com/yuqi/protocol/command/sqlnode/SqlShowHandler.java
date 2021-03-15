@@ -1,6 +1,7 @@
 package com.yuqi.protocol.command.sqlnode;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.yuqi.constant.StringConstants;
 import com.yuqi.protocol.connection.netty.ConnectionContext;
 import com.yuqi.protocol.enums.ShowEnum;
@@ -12,13 +13,18 @@ import com.yuqi.sql.SlothColumn;
 import com.yuqi.sql.SlothSchema;
 import com.yuqi.sql.SlothSchemaHolder;
 import com.yuqi.sql.SlothTable;
+import com.yuqi.sql.env.SlothEnvironmentValueHolder;
 import com.yuqi.sql.sqlnode.ddl.SqlShow;
+import com.yuqi.sql.util.PatternMatcher;
 import com.yuqi.util.StringUtil;
 import io.netty.buffer.ByteBuf;
+import org.apache.calcite.sql.parser.SqlParserUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -57,8 +63,26 @@ public class SqlShowHandler implements Handler<SqlShow> {
                         .collect(Collectors.toList());
                 break;
 
-            case SHOW_TABLBS:
-                final String db = connectionContext.getDb();
+            case SHOW_VARIABLES:
+                data = new ArrayList<>();
+                columnName = new String[] {"Variable_name", "Value"};
+                Map<String, Object> properties = SlothEnvironmentValueHolder.INSTACNE.getProperties();
+                Map<String, Object> matchProperties = properties;
+                if(command != null){
+                    String pattern = SqlParserUtil.trim(command, "'");
+                    PatternMatcher matcher = PatternMatcher.createMysqlPattern(pattern, true);
+                    matchProperties = Maps.filterEntries(properties, e -> matcher.match(e.getKey()));
+                }
+
+
+                for(Map.Entry<String, Object> e : matchProperties.entrySet()){
+                    data.add(Lists.newArrayList(e.getKey(), e.getValue() == null ? "" : e.getValue().toString()));
+                }
+                break;
+
+            case SHOW_TABLES:
+                String dbFromCommand = type.getDbFromCommand();
+                final String db = Objects.isNull(dbFromCommand) ? connectionContext.getDb() : dbFromCommand;
                 if (Objects.isNull(db)) {
                     MysqlPackage mysqlPackage = PackageUtils.buildErrPackage(
                             NO_DATABASE_SELECTED.getCode(),

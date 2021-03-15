@@ -6,6 +6,7 @@ import com.yuqi.sql.rule.SlothRules;
 import org.apache.calcite.avatica.util.Casing;
 import org.apache.calcite.avatica.util.Quoting;
 import org.apache.calcite.config.CalciteConnectionConfigImpl;
+import org.apache.calcite.config.CalciteConnectionProperty;
 import org.apache.calcite.config.Lex;
 import org.apache.calcite.jdbc.CalciteSchema;
 import org.apache.calcite.jdbc.JavaTypeFactoryImpl;
@@ -36,6 +37,7 @@ import java.util.Properties;
 
 import static com.yuqi.sql.rule.SlothRules.BASE_RULES;
 import static com.yuqi.sql.rule.SlothRules.CONSTANT_REDUCTION_RULES;
+import static org.apache.calcite.config.CalciteConnectionProperty.CASE_SENSITIVE;
 
 /**
  * @author yuqi
@@ -50,7 +52,7 @@ public class ParserFactory {
             CalciteSchema.createRootSchema(false),
             ImmutableList.of(),
             new JavaTypeFactoryImpl(),
-            new CalciteConnectionConfigImpl(new Properties())
+            new CalciteConnectionConfigImpl(new Properties()).set(CalciteConnectionProperty.CASE_SENSITIVE, "false")
     );
 
 
@@ -129,7 +131,9 @@ public class ParserFactory {
                 .setQuotedCasing(Casing.UNCHANGED)
                 .setUnquotedCasing(Casing.UNCHANGED)
                 .setCaseSensitive(false)
+
                 .setConformance(SqlConformanceEnum.MYSQL_5)
+//                .setAllowBangEqual(false)
                 .setParserFactory(SqlSchemaParserImpl.FACTORY);
 
 

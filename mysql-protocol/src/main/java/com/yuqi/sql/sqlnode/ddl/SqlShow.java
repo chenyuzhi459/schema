@@ -21,14 +21,16 @@ public class SqlShow extends SqlDdl {
 
     private String command;
     private ShowEnum type;
+    private String dbFromCommand;
 
     public String getCommand() {
         return command;
     }
 
-    public SqlShow(SqlParserPos pos, ShowEnum type, String command) {
+    public SqlShow(SqlParserPos pos, ShowEnum type, String dbFromCommand, String command) {
         super(SHOW, pos);
         this.type = type;
+        this.dbFromCommand = dbFromCommand;
         this.command = command;
     }
 
@@ -39,8 +41,13 @@ public class SqlShow extends SqlDdl {
         return type;
     }
 
+    public String getDbFromCommand() {
+        return dbFromCommand;
+    }
+
     @Nonnull
     @Override
+
     public List<SqlNode> getOperandList() {
         return null;
     }
