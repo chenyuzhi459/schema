@@ -59,16 +59,16 @@ public class InformationStorageEngine implements StorageEngine {
     @Override
     public Iterator<SlothRow> query(QueryContext queryContext) throws IOException {
         String table = slothTableEngine.getSlothTable().getTableName();
-        List<SlothSchema> schemas = SlothSchemaHolder.INSTANCE.getSchemaMap().stream()
-                .filter(slothSchema -> !slothSchema.getSchemaName().equalsIgnoreCase(SlothSchemaHolder.INSTANCE.INFORMATION_SCHEMA_NAME))
-                .collect(Collectors.toList());
+//        List<SlothSchema> schemas = SlothSchemaHolder.INSTANCE.getSchemaMap().stream()
+//                .filter(slothSchema -> !slothSchema.getSchemaName().equalsIgnoreCase(SlothSchemaHolder.INSTANCE.INFORMATION_SCHEMA_NAME))
+//                .collect(Collectors.toList());
         switch (table.toUpperCase()){
             case "COLUMNS":
-            return queryForColumns(schemas);
+            return queryForColumns(SlothSchemaHolder.INSTANCE.getSchemaMap());
             case "SCHEMATA"://should include information
                 return queryForSchemata(SlothSchemaHolder.INSTANCE.getSchemaMap());
             case "TABLES":
-                return queryForTables(schemas);
+                return queryForTables(SlothSchemaHolder.INSTANCE.getSchemaMap());
             default:
 
         }

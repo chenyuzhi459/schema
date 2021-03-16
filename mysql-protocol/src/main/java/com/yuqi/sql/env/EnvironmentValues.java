@@ -93,6 +93,9 @@ public class EnvironmentValues {
     public static final String INSERT_VISIBLE_TIMEOUT_MS = "insert_visible_timeout_ms";
 
     public static final String DELETE_WITHOUT_PARTITION = "delete_without_partition";
+//    public static final String PROFILING = "profiling";
+//    public static final String HAVE_PROFILING = "have_profiling";
+//    public static final String PROFILING_HISTORY_SIZE = "profiling_history_size";
 
 
     public static final long DEFAULT_INSERT_VISIBLE_TIMEOUT_MS = 10_000;
@@ -104,6 +107,10 @@ public class EnvironmentValues {
     public static final String TRANSACTION_ISOLATION = "transaction_isolation";
     public static final String VERSION_COMMENT = "version_comment";
 
+
+//    public static final String profiling = "off";
+//    public static final String haveProfiling = "no";
+//    public static final int profilingHistorySize = 0;
 
     public static String versionComment = "druid";
 
@@ -271,6 +278,11 @@ public class EnvironmentValues {
 
         GLOBAL_ENVIRONMENT.put(WAIT_TIMEOUT, waitTimeout);
         GLOBAL_ENVIRONMENT.put(NET_BUFFER_LENGTH, netBufferLength);
+//
+//
+//        GLOBAL_ENVIRONMENT.put(HAVE_PROFILING, haveProfiling);
+//        GLOBAL_ENVIRONMENT.put(PROFILING, profiling);
+//        GLOBAL_ENVIRONMENT.put(PROFILING_HISTORY_SIZE, profilingHistorySize);
 
     }
 }

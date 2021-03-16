@@ -22,7 +22,9 @@ public abstract class ArithmeticFunction extends Scalar {
         @Override
         public Value evaluate(List<Value> args, DataType returnType) {
             boolean hasDecimal = args.stream().anyMatch(v -> DataTypes.DECIMAL_TYPES.contains(v.getType()));
-
+            if(args.get(0).getValue() == null || args.get(0).getValue() == null){
+                return new Value(null, returnType);
+            }
             if (hasDecimal) {
                 double r = Functions.plus(args.get(0).doubleValue(), args.get(1).doubleValue());
                 return new Value(r, returnType);
@@ -37,7 +39,9 @@ public abstract class ArithmeticFunction extends Scalar {
         @Override
         public Value evaluate(List<Value> args, DataType returnType) {
             boolean hasDecimal = args.stream().anyMatch(v -> DataTypes.DECIMAL_TYPES.contains(v.getType()));
-
+            if(args.get(0).getValue() == null || args.get(0).getValue() == null){
+                return new Value(null, returnType);
+            }
             if (hasDecimal) {
                 double r = Functions.minus(args.get(0).doubleValue(), args.get(1).doubleValue());
                 return new Value(r, returnType);
@@ -52,7 +56,9 @@ public abstract class ArithmeticFunction extends Scalar {
         @Override
         public Value evaluate(List<Value> args, DataType returnType) {
             boolean hasDecimal = args.stream().anyMatch(v -> DataTypes.DECIMAL_TYPES.contains(v.getType()));
-
+            if(args.get(0).getValue() == null || args.get(0).getValue() == null){
+                return new Value(null, returnType);
+            }
             if (hasDecimal) {
                 double r = Functions.multiply(args.get(0).doubleValue(), args.get(1).doubleValue());
                 return new Value(r, returnType);
@@ -67,7 +73,9 @@ public abstract class ArithmeticFunction extends Scalar {
         @Override
         public Value evaluate(List<Value> args, DataType returnType) {
             boolean hasDecimal = args.stream().anyMatch(v -> DataTypes.DECIMAL_TYPES.contains(v.getType()));
-
+            if(args.get(0).getValue() == null || args.get(0).getValue() == null){
+                return new Value(null, returnType);
+            }
             if (hasDecimal) {
                 double r = Functions.divide(args.get(0).doubleValue(), args.get(1).doubleValue());
                 return new Value(r, returnType);

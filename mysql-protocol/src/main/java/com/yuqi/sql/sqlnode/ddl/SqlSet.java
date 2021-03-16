@@ -59,4 +59,13 @@ public class SqlSet extends SqlDdl {
     public List<SqlNode> getOperandList() {
         return null;
     }
+
+    @Override
+    public String toString() {
+        return "SqlSet{" +
+                "isGobal=" + isGobal +
+                ", key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                '}';
+    }
 }

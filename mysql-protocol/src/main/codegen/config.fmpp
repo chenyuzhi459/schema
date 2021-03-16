@@ -56,6 +56,7 @@ data: {
     keywords: [
         "IF",
         "USE",
+        "CHARSET",
         "DATABASES",
         "TABLES",
         "UNSIGNED",
@@ -67,6 +68,7 @@ data: {
         "MEDIUMTEXT",
         "LONGTEXT",
         "ENGINE",
+        "ENGINES",
         "SHARD",
         "STATUS"
     ]
@@ -109,7 +111,7 @@ data: {
       "COLLATION_NAME"
       "COLLATION_SCHEMA"
       "COLUMN_NAME"
-       "COLUMNS",
+      "COLUMNS",
       "COMMAND_FUNCTION"
       "COMMAND_FUNCTION_CODE"
       "COMMITTED"
@@ -149,6 +151,7 @@ data: {
       "DYNAMIC_FUNCTION"
       "DYNAMIC_FUNCTION_CODE"
       "ENCODING"
+      "ENGINES"
       "EPOCH"
       "ERROR"
       "EXCEPTION"
@@ -192,6 +195,7 @@ data: {
       "KEY_MEMBER"
       "KEY_TYPE"
       "LABEL"
+      "LANGUAGE"
       "LAST"
       "LENGTH"
       "LEVEL"

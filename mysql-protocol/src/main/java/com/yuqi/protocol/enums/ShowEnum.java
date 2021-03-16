@@ -13,6 +13,7 @@ public enum ShowEnum {
      */
     SHOW_TABLES(0, "tables"),
 
+
     /**
      * show databases;
      */
@@ -36,7 +37,23 @@ public enum ShowEnum {
     /**
      * show table status;
      */
-    SHOW_TABLES_STATUS(5, "table");
+    SHOW_TABLES_STATUS(5, "table status"),
+
+    /**
+     * show engines;
+     */
+    SHOW_ENGINES(6, "ENGINES"),
+
+    /**
+     * show charset;
+     */
+    SHOW_CHARSET(7, "CHARSET"),
+
+    /**
+     * show collation;
+     */
+    SHOW_COLLATION(8, "COLLATION");
+
 
     private final int index;
     private final String startKeyWord;

@@ -1,13 +1,7 @@
 package com.yuqi.sql.util;
 
 import com.google.common.collect.Maps;
-import com.yuqi.engine.data.func.AbsFunction;
-import com.yuqi.engine.data.func.ArithmeticFunction;
-import com.yuqi.engine.data.func.CastFunction;
-import com.yuqi.engine.data.func.CompareFunction;
-import com.yuqi.engine.data.func.LogicalFunction;
-import com.yuqi.engine.data.func.Scalar;
-import com.yuqi.engine.data.func.UnaryMinusFunction;
+import com.yuqi.engine.data.func.*;
 import com.yuqi.engine.data.func.nil.IsNotNullFunction;
 import com.yuqi.engine.data.func.nil.IsNullFunction;
 
@@ -21,6 +15,7 @@ import static org.apache.calcite.sql.fun.SqlStdOperatorTable.EQUALS;
 import static org.apache.calcite.sql.fun.SqlStdOperatorTable.GREATER_THAN;
 import static org.apache.calcite.sql.fun.SqlStdOperatorTable.GREATER_THAN_OR_EQUAL;
 import static org.apache.calcite.sql.fun.SqlStdOperatorTable.IS_NOT_NULL;
+import static org.apache.calcite.sql.fun.SqlStdOperatorTable.CASE;
 import static org.apache.calcite.sql.fun.SqlStdOperatorTable.IS_NULL;
 import static org.apache.calcite.sql.fun.SqlStdOperatorTable.LESS_THAN;
 import static org.apache.calcite.sql.fun.SqlStdOperatorTable.LESS_THAN_OR_EQUAL;
@@ -72,6 +67,8 @@ public class FunctionMappingUtils {
         //is NULL/ is not null relatated
         NAME_TO_SCLAR_MAP.put(IS_NOT_NULL.getName(), IsNotNullFunction.INSTANCE);
         NAME_TO_SCLAR_MAP.put(IS_NULL.getName(), IsNullFunction.INSTANCE);
+
+        NAME_TO_SCLAR_MAP.put(CASE.getName(), CaseFunction.INSTANCE);
 
     }
 

@@ -115,7 +115,14 @@ SqlShow SqlShow() :
     }
     |
     <TABLE> <STATUS>
-
+        [
+               <FROM>
+               db = Identifier()
+        ]
+        [
+                <LIKE>
+                command = StringLiteral()
+        ]
     {
 
       type = ShowEnum.SHOW_TABLES_STATUS;
@@ -140,7 +147,6 @@ SqlShow SqlShow() :
 
         command = CompoundIdentifier();
          type = ShowEnum.SHOW_COLUMNS;
-        //return new SqlShow(pos, type, db, command == null ? null : command.toString());
     }
     |
     <VARIABLES>
@@ -157,6 +163,21 @@ SqlShow SqlShow() :
     command = CompoundIdentifier()
     {
         type = ShowEnum.SHOW_CREATE;
+    }
+    |
+    <ENGINES>
+    {
+        type = ShowEnum.SHOW_ENGINES;
+    }
+    |
+    <CHARSET>
+    {
+        type = ShowEnum.SHOW_CHARSET;
+    }
+    |
+    <COLLATION>
+    {
+        type = ShowEnum.SHOW_COLLATION;
     }
     )
     {

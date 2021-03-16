@@ -290,6 +290,31 @@ public class InformationSchema  extends SlothSchema {
                                             .put("INDEX_TYPE", SqlTypeName.VARCHAR)
                                             .put("COMMENT", SqlTypeName.VARCHAR)
                                             .build()))
+                    .put("profiling",
+                            new InformationTable(
+                                    //SystemIdGenerator.getNextId(),
+                                    "profiling",
+                                    //TableType.SCHEMA
+                                    ImmutableMap.<String, SqlTypeName>builder()
+                                            .put("QUERY_ID", SqlTypeName.VARCHAR)
+                                            .put("SEQ", SqlTypeName.VARCHAR)
+                                            .put("STATE", SqlTypeName.VARCHAR)
+                                            .put("DURATION", SqlTypeName.BIGINT)
+                                            .put("CPU_USER", SqlTypeName.VARCHAR)
+                                            .put("CPU_SYSTEM", SqlTypeName.VARCHAR)
+                                            .put("CONTEXT_VOLUNTARY", SqlTypeName.BIGINT)
+                                            .put("CONTEXT_INVOLUNTARY", SqlTypeName.VARCHAR)
+                                            .put("BLOCK_OPS_IN", SqlTypeName.VARCHAR)
+                                            .put("BLOCK_OPS_OUT", SqlTypeName.BIGINT)
+                                            .put("MESSAGES_SENT", SqlTypeName.BIGINT)
+                                            .put("MESSAGES_RECEIVED", SqlTypeName.VARCHAR)
+                                            .put("PAGE_FAULTS_MAJOR", SqlTypeName.VARCHAR)
+                                            .put("PAGE_FAULTS_MINOR", SqlTypeName.VARCHAR)
+                                            .put("SWAPS", SqlTypeName.VARCHAR)
+                                            .put("SOURCE_FUNCTION", SqlTypeName.VARCHAR)
+                                            .put("SOURCE_FILE", SqlTypeName.VARCHAR)
+                                            .put("SOURCE_LINE", SqlTypeName.VARCHAR)
+                                            .build()))
                     .build();
 
     public InformationSchema(String schemaName) {
