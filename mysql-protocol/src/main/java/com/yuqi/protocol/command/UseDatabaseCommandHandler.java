@@ -2,6 +2,7 @@ package com.yuqi.protocol.command;
 
 import com.yuqi.protocol.connection.netty.ConnectionContext;
 import com.yuqi.protocol.pkg.MysqlPackage;
+import com.yuqi.protocol.utils.IOUtils;
 import com.yuqi.protocol.utils.PackageUtils;
 import com.yuqi.sql.SlothSchemaHolder;
 import io.netty.buffer.ByteBuf;
@@ -17,9 +18,9 @@ import static com.yuqi.protocol.constants.ErrorCodeAndMessageEnum.UNKNOWN_DB_NAM
 public class UseDatabaseCommandHandler extends AbstractCommandHandler {
     private String command;
 
-    public UseDatabaseCommandHandler(ConnectionContext connectionContext, String command) {
+    public UseDatabaseCommandHandler(ConnectionContext connectionContext, ByteBuf byteBuf) {
         super(connectionContext);
-        this.command = command;
+        this.command = IOUtils.readEofString(byteBuf);;
     }
 
     @Override

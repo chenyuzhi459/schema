@@ -7,6 +7,7 @@ import com.yuqi.protocol.command.sqlnode.HandlerHolder;
 import com.yuqi.protocol.connection.netty.ConnectionContext;
 import com.yuqi.protocol.pkg.MysqlPackage;
 import com.yuqi.protocol.pkg.ResultSetHolder;
+import com.yuqi.protocol.utils.IOUtils;
 import com.yuqi.protocol.utils.PackageUtils;
 import com.yuqi.sql.ParserFactory;
 import com.yuqi.sql.SlothParser;
@@ -34,9 +35,9 @@ public class QueryCommandHandler extends AbstractCommandHandler {
 
     private String query;
 
-    public QueryCommandHandler(ConnectionContext connectionContext, String query) {
+    public QueryCommandHandler(ConnectionContext connectionContext, ByteBuf byteBuf) {
         super(connectionContext);
-        this.query = query;
+        this.query = IOUtils.readEofString(byteBuf);
     }
 
     @Override

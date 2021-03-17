@@ -1,6 +1,7 @@
 package com.yuqi.protocol.connection.netty;
 
 import com.yuqi.protocol.command.CommandHandler;
+import com.yuqi.protocol.command.FieldListCommandHandler;
 import com.yuqi.protocol.command.QueryCommandHandler;
 import com.yuqi.protocol.command.UseDatabaseCommandHandler;
 import com.yuqi.protocol.pkg.MysqlPackage;
@@ -37,9 +38,9 @@ public class MysqlPackageHandler extends ChannelInboundHandlerAdapter {
             case COM_USE_DB:
                 handler = new UseDatabaseCommandHandler(connectionContext, commandPackage.getCommand());
                 break;
-//            case COM_FIELD_LIST:
-//                handler = new UseDatabaseCommandHandler(connectionContext, commandPackage.getCommand());
-//                break;
+            case COM_FIELD_LIST:
+                handler = new FieldListCommandHandler(connectionContext, commandPackage.getCommand());
+                break;
             default:
                 //todo
                 handler = new QueryCommandHandler(connectionContext, commandPackage.getCommand());

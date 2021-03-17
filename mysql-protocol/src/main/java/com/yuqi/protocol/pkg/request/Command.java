@@ -15,11 +15,12 @@ import lombok.Data;
 public class Command extends AbstractReaderAndWriter {
     private byte commandType;
 
-    private String command;
+    private ByteBuf command;
+
 
     @Override
     public void read(ByteBuf byteBuf) {
         this.commandType = IOUtils.readByte(byteBuf);
-        this.command = IOUtils.readEofString(byteBuf);
+        this.command = IOUtils.copyByteBuf(byteBuf);
     }
 }
