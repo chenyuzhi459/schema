@@ -52,7 +52,12 @@ public enum ShowEnum {
     /**
      * show collation;
      */
-    SHOW_COLLATION(8, "COLLATION");
+    SHOW_COLLATION(8, "COLLATION"),
+
+    /**
+     * show warnings;
+     */
+    SHOW_WARNINGS(9, "WARNINGS");
 
 
     private final int index;

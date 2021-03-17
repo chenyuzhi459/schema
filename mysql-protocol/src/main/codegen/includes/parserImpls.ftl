@@ -179,6 +179,11 @@ SqlShow SqlShow() :
     {
         type = ShowEnum.SHOW_COLLATION;
     }
+    |
+    <WARNINGS>
+    {
+        type = ShowEnum.SHOW_WARNINGS;
+    }
     )
     {
       return new SqlShow(pos, type, db, command == null ? null : command.toString());

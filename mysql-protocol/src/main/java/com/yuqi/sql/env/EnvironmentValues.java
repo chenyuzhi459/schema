@@ -114,7 +114,7 @@ public class EnvironmentValues {
 
     public static String versionComment = "druid";
 
-    public static String transactionIsolation = "repeatable-read";
+    public static String transactionIsolation = "REPEATABLE-READ";
 
     // A string to be executed by the server for each client that connects
     public static String systemTimeZone = "UTC";

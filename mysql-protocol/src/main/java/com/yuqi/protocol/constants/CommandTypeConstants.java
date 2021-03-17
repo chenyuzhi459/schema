@@ -7,10 +7,13 @@ package com.yuqi.protocol.constants;
  * @time 4/7/20 20:38
  **/
 public class CommandTypeConstants {
+    public static final byte COM_QUIT = 0x01;
 
     public static final byte COM_USE_DB = 0x02;
 
     public static final byte COM_QUERY = 0x03;
+
+    public static final byte COM_FIELD_LIST = 0x04;
 
     public static final byte COM_CREATE_DB = 0x05;
 

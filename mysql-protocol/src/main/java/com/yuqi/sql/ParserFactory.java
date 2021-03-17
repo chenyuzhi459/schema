@@ -29,9 +29,11 @@ import org.apache.calcite.sql.util.ChainedSqlOperatorTable;
 import org.apache.calcite.sql.validate.SqlConformanceEnum;
 import org.apache.calcite.sql.validate.SqlValidator;
 import org.apache.calcite.sql.validate.SqlValidatorUtil;
+import org.apache.calcite.util.ConversionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -46,6 +48,11 @@ import static org.apache.calcite.config.CalciteConnectionProperty.CASE_SENSITIVE
  * @time 10/7/20 19:50
  **/
 public class ParserFactory {
+    static{
+        System.setProperty("saffron.default.charset", ConversionUtil.NATIVE_UTF16_CHARSET_NAME);
+        System.setProperty("saffron.default.nationalcharset", ConversionUtil.NATIVE_UTF16_CHARSET_NAME);
+        System.setProperty("saffron.default.collation.name", String.format(Locale.ENGLISH,"%s$en_US", ConversionUtil.NATIVE_UTF16_CHARSET_NAME));
+    }
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ParserFactory.class);
     public static final CalciteCatalogReader CALCITE_CATALOG_READER = new CalciteCatalogReader(

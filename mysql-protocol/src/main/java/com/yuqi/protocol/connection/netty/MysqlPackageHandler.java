@@ -8,8 +8,7 @@ import com.yuqi.protocol.pkg.request.Command;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
-import static com.yuqi.protocol.constants.CommandTypeConstants.COM_QUERY;
-import static com.yuqi.protocol.constants.CommandTypeConstants.COM_USE_DB;
+import static com.yuqi.protocol.constants.CommandTypeConstants.*;
 
 /**
  * @author yuqi
@@ -38,6 +37,9 @@ public class MysqlPackageHandler extends ChannelInboundHandlerAdapter {
             case COM_USE_DB:
                 handler = new UseDatabaseCommandHandler(connectionContext, commandPackage.getCommand());
                 break;
+//            case COM_FIELD_LIST:
+//                handler = new UseDatabaseCommandHandler(connectionContext, commandPackage.getCommand());
+//                break;
             default:
                 //todo
                 handler = new QueryCommandHandler(connectionContext, commandPackage.getCommand());

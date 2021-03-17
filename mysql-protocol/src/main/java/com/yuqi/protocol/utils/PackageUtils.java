@@ -174,7 +174,7 @@ public class PackageUtils {
                             .name(columnName[i])
                             .originalName("")
                             //original 33
-                            .charSet(0)
+                            .charSet(33)
                             .filler((byte) 0x0c)
                             //original 84
                             .columnLength(0)

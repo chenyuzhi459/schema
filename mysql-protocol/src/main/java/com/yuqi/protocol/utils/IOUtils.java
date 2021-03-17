@@ -134,8 +134,8 @@ public class IOUtils {
             return;
         }
 
-        int length = string.length();
         byte[] bytes = string.getBytes(StandardCharsets.UTF_8);
+        int length = bytes.length;
         IOUtils.writeLengthEncodedInteger(length, byteBuf);
         if (length > 0) {
             IOUtils.writeBytesWithoutEndFlag(bytes, byteBuf);

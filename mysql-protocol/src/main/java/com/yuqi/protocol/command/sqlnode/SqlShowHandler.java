@@ -135,6 +135,7 @@ public class SqlShowHandler implements Handler<SqlShow> {
 
                 break;
             case SHOW_CHARSET:
+            case SHOW_WARNINGS:
 //                columnName = new String[]{};
                 data = Collections.emptyList();
                 break;
@@ -169,7 +170,7 @@ public class SqlShowHandler implements Handler<SqlShow> {
 
     private ShowClauseResult getCollationData(){
         List<List<String>> result = new ArrayList<>();
-        String[] row1 = {"utf8_general_ci","utf8"," 33","Yes","Yes"};
+        String[] row1 = {"utf8_general_ci","utf8","33","Yes","Yes", "1"};
         result.add(Lists.newArrayList(row1));
         return new ShowClauseResult(false, SHOW_COLLATION_RESULT_COLUMN, result, null);
     }
