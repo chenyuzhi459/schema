@@ -1,9 +1,6 @@
 package com.yuqi.protocol.connection.netty;
 
-import com.yuqi.protocol.command.CommandHandler;
-import com.yuqi.protocol.command.FieldListCommandHandler;
-import com.yuqi.protocol.command.QueryCommandHandler;
-import com.yuqi.protocol.command.UseDatabaseCommandHandler;
+import com.yuqi.protocol.command.*;
 import com.yuqi.protocol.pkg.MysqlPackage;
 import com.yuqi.protocol.pkg.request.Command;
 import io.netty.channel.ChannelHandlerContext;
@@ -32,6 +29,10 @@ public class MysqlPackageHandler extends ChannelInboundHandlerAdapter {
         final byte type = commandPackage.getCommandType();
         CommandHandler handler;
         switch (type) {
+            case COM_PING:
+            case COM_QUIT:
+                handler = new EmptyCommandHandler(connectionContext);
+                break;
             case COM_QUERY:
                 handler = new QueryCommandHandler(connectionContext, commandPackage.getCommand());
                 break;

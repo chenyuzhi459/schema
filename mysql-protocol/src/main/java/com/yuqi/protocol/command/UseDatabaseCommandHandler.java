@@ -20,7 +20,7 @@ public class UseDatabaseCommandHandler extends AbstractCommandHandler {
 
     public UseDatabaseCommandHandler(ConnectionContext connectionContext, ByteBuf byteBuf) {
         super(connectionContext);
-        this.command = IOUtils.readEofString(byteBuf);;
+        this.command = IOUtils.readEofString(byteBuf);
     }
 
     @Override

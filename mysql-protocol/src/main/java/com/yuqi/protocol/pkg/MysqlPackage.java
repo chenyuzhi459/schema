@@ -1,5 +1,6 @@
 package com.yuqi.protocol.pkg;
 
+import com.yuqi.engine.io.IO;
 import com.yuqi.protocol.io.ReaderAndWriter;
 import com.yuqi.protocol.utils.IOUtils;
 import io.netty.buffer.ByteBuf;
@@ -71,15 +72,20 @@ public class MysqlPackage implements ReaderAndWriter {
     public void write(ByteBuf byteBuf) {
 
         ByteBuf tmp = PooledByteBufAllocator.DEFAULT.buffer(128);
-        abstractReaderAndWriterPackage.write(tmp);
+        try {
+            abstractReaderAndWriterPackage.write(tmp);
 
-        this.lengthOfMessage = tmp.readableBytes();
-        IOUtils.writeInteger3(lengthOfMessage, byteBuf);
-        IOUtils.writeByte(seqNumber, byteBuf);
-        byte[] bytes = new byte[tmp.readableBytes()];
-        tmp.readBytes(bytes);
+            this.lengthOfMessage = tmp.readableBytes();
+            IOUtils.writeInteger3(lengthOfMessage, byteBuf);
+            IOUtils.writeByte(seqNumber, byteBuf);
+            byte[] bytes = new byte[tmp.readableBytes()];
+            tmp.readBytes(bytes);
 
-        //change from writeBytes -->  writeBytesWithoutEndFlag
-        IOUtils.writeBytesWithoutEndFlag(bytes, byteBuf);
+            //change from writeBytes -->  writeBytesWithoutEndFlag
+            IOUtils.writeBytesWithoutEndFlag(bytes, byteBuf);
+        } finally {
+            IOUtils.decreaseReference(tmp);
+        }
+
     }
 }

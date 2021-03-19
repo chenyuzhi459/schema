@@ -2,6 +2,7 @@ package com.yuqi.protocol.connection.netty;
 
 import com.google.common.collect.Maps;
 import com.yuqi.protocol.pkg.MysqlPackage;
+import com.yuqi.protocol.utils.IOUtils;
 import com.yuqi.protocol.utils.PackageUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -62,9 +63,6 @@ public class ConnectionContext {
 
     public void write(ByteBuf byteBuf) {
         channelHandlerContext.writeAndFlush(byteBuf);
-        if (ReferenceCountUtil.refCnt(byteBuf) > 0) {
-            ReferenceCountUtil.release(byteBuf);
-        }
     }
 
     public void write(MysqlPackage result) {

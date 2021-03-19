@@ -2,6 +2,7 @@ package com.yuqi.protocol.utils;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.PooledByteBufAllocator;
+import io.netty.util.ReferenceCountUtil;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
@@ -156,16 +157,28 @@ public class IOUtils {
      * @return
      */
     public static String readString(ByteBuf byteBuf) {
+        return readString(byteBuf, true);
+    }
+
+    public static String readString(ByteBuf byteBuf, boolean release) {
         ByteBuf tmp = PooledByteBufAllocator.DEFAULT.buffer(byteBuf.readableBytes());
-        byte b;
-        while (byteBuf.isReadable() && (b = ((byte) (byteBuf.readByte() & 0xff))) != 0x00) {
-            tmp.writeByte(b);
+        try {
+            byte b;
+            while (byteBuf.isReadable() && (b = ((byte) (byteBuf.readByte() & 0xff))) != 0x00) {
+                tmp.writeByte(b);
+            }
+
+            int length = tmp.readableBytes();
+            byte[] byteResult = new byte[length];
+            tmp.readBytes(byteResult);
+            return new String(byteResult);
+        } finally {
+            decreaseReference(tmp);
+            if(release) {
+                decreaseReference(byteBuf);
+            }
         }
 
-        int length = tmp.readableBytes();
-        byte[] byteResult = new byte[length];
-        tmp.readBytes(byteResult);
-        return new String(byteResult);
     }
 
     /**
@@ -174,10 +187,21 @@ public class IOUtils {
      * @return
      */
     public static String readEofString(ByteBuf byteBuf) {
-        int length = byteBuf.readableBytes();
-        byte[] byteResult = new byte[length];
-        byteBuf.readBytes(byteResult);
-        return new String(byteResult);
+        return readEofString(byteBuf, true);
+    }
+
+    public static String readEofString(ByteBuf byteBuf, boolean release) {
+        try {
+            int length = byteBuf.readableBytes();
+            byte[] byteResult = new byte[length];
+            byteBuf.readBytes(byteResult);
+            return new String(byteResult);
+        } finally {
+            if(release) {
+                decreaseReference(byteBuf);
+            }
+        }
+
     }
 
     /**
@@ -273,6 +297,12 @@ public class IOUtils {
         }
 
         return result;
+    }
+
+    public static void decreaseReference(Object referenceObj){
+        if (ReferenceCountUtil.refCnt(referenceObj) > 0) {
+            ReferenceCountUtil.release(referenceObj);
+        }
     }
 
 }

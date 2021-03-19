@@ -45,27 +45,22 @@ public class NettyConnectionHandler extends ChannelInboundHandlerAdapter {
     private boolean sendAuthencationPackage(Channel channel) {
         ServerGreeting serverGreetingPackage = PackageUtils.buildInitAuthencatinPackage();
         ByteBuf tmp = PooledByteBufAllocator.DEFAULT.buffer(128);
-        serverGreetingPackage.write(tmp);
+        try {
+            serverGreetingPackage.write(tmp);
 
-        int length = tmp.readableBytes();
-        byte[] bytes = new byte[length];
-        tmp.readBytes(bytes);
+            ByteBuf buf = ByteBufAllocator.DEFAULT.buffer(128);
+            IOUtils.writeInteger3(tmp.readableBytes(), buf);
+            IOUtils.writeByte((byte) 0x00, buf);
 
-        ByteBuf byteBuf = PooledByteBufAllocator.DEFAULT.buffer(128);
-        IOUtils.writeInteger3(length, byteBuf);
-        IOUtils.writeByte((byte) 0x00, byteBuf);
-        byteBuf.writeBytes(bytes);
+            buf.writeBytes(tmp);
 
+            channel.writeAndFlush(buf);
 
-        byte[] by = new byte[byteBuf.readableBytes()];
-        byteBuf.readBytes(by);
+            return true;
+        } finally {
+            IOUtils.decreaseReference(tmp);
+        }
 
-        ByteBuf buf = ByteBufAllocator.DEFAULT.buffer(128);
-        buf.writeBytes(by);
-
-        channel.writeAndFlush(buf);
-
-        return true;
     }
 
     public boolean channelHasAuthencation(Channel channel) {

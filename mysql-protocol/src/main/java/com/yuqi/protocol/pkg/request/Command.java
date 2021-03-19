@@ -21,6 +21,11 @@ public class Command extends AbstractReaderAndWriter {
     @Override
     public void read(ByteBuf byteBuf) {
         this.commandType = IOUtils.readByte(byteBuf);
-        this.command = IOUtils.copyByteBuf(byteBuf);
+        try {
+            this.command = IOUtils.copyByteBuf(byteBuf);
+        } finally {
+            IOUtils.decreaseReference(byteBuf);
+        }
+
     }
 }

@@ -62,7 +62,7 @@ public class LoginRequest extends AbstractReaderAndWriter {
         //23 byte is useless
         this.unused = IOUtils.readFixLengthString(byteBuf, 23);
 
-        this.userName = IOUtils.readString(byteBuf);
+        this.userName = IOUtils.readString(byteBuf, false);
 
         if (0 != (clientCapability & CLIENT_PLUGIN_AUTH_LENENC_CLIENT_DATA)) {
             authResponse = IOUtils.readLengthEncodedString(byteBuf);
@@ -70,15 +70,15 @@ public class LoginRequest extends AbstractReaderAndWriter {
             int length = IOUtils.readLengthEncodedInteger(byteBuf);
             authResponse = IOUtils.readFixLengthString(byteBuf, length);
         } else {
-            authResponse = IOUtils.readString(byteBuf);
+            authResponse = IOUtils.readString(byteBuf, false);
         }
 
         if (0 != (clientCapability & CLIENT_CONNECT_WITH_DB)) {
-            database = IOUtils.readString(byteBuf);
+            database = IOUtils.readString(byteBuf, false);
         }
 
         if (0 != (clientCapability & CLIENT_PLUGIN_AUTH)) {
-            authPluginName = IOUtils.readString(byteBuf);
+            authPluginName = IOUtils.readString(byteBuf, false);
         }
 
         if (byteBuf.isReadable()) {

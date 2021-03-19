@@ -18,4 +18,6 @@ public class CommandTypeConstants {
     public static final byte COM_CREATE_DB = 0x05;
 
     public static final byte COM_DROP_DB = 0x06;
+
+    public static final byte COM_PING = 0x0e;  //14
 }
