@@ -8,7 +8,7 @@
 
 # Schema 一款简单支持异构数据源的SQL Driver
 
-
+> 基于`https://github.com/yuqi1129/schema` 克隆而来, 本项目主要基于calcite 并参考了doris项目增加了对Navicat/Dbeaver客户端的支持
 
 ## 1. 简介
 
